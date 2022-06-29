@@ -48,7 +48,21 @@ console.log(collection);
 //   - Console.log the number of items in the array.
 //   - Loop over the array and console.log each album's information formatted like: `TITLE by ARTIST, published in YEAR`.
 
+/**
+ * Shows the properties of albums in a collection
+ * @param {[array]} arrayInput a collection of albums
+ * @return No specified return. Instead, console.log the number of albums and each album's title, artist and published year.
+*/
+
+function showCollection (array) {
+    console.log('There are', array.length,'albums in this collection.');
+    for (let i=0; i<array.length; i+=1) {
+        console.log(`${array[i].title} by ${array[i].artist}, published in ${array[i].yearPublished}.`)
+    }
+}
+
 // - Test the `showCollection` function.
+showCollection(collection);
 
 // - Add a function named `findByArtist`. This function should:
 //   - Take in `artist` (a string) parameter
