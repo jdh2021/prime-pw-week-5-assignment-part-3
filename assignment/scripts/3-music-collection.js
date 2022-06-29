@@ -70,10 +70,25 @@ showCollection(collection);
 //   - Loop through the `collection` and add any objects with a matching artist to the array.
 //   - Return the array with the matching results. If no results are found, return an empty array.
 
+/**
+ * Search for and show albums found by a specified artist
+ * @param {string} artistInput artist to search for
+ * @return {[array]} albumsFound albums found by the specified artist
+*/
+
+function findByArtist (artistInput) {
+    const albumsFound = [];
+    for(let album of collection) {
+        if (artistInput === album.artist) {
+            albumsFound.push(album);
+        }
+    }
+    return albumsFound;
+}
+
 // - Test the `findByArtist` function. Make sure to test with an artist you know is in the collection, as well as an artist you know is not in your collection. Check that for artists with multiple matches, all are found.
-
-// > When testing your functions, write all tests in the JavaScript file!
-
+console.log(findByArtist('Red Hot Chili Peppers'));
+console.log(findByArtist('Tracy Chapman')); 
 
 // ### Stretch goals
 
