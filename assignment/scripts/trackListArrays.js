@@ -203,7 +203,7 @@ const goodKidMaadCityTrackListing = [
         trackDuration: '5:50'
     },
     {
-        trackName: 'Swimming Pools (Drank)', 
+        trackName: 'Swimming Pools (Drank) [Extended]', 
         trackDuration: '5:13'
     },
     {
