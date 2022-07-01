@@ -13,19 +13,19 @@ const collection = [];
 
 /**
  * Adds an album to a collection 
- * @param {string} titleInput album title
- * @param {string} artistInput album artist
- * @param {number} yearPublishedInput album year
- * @param {[array]} trackListInput array of track objects in the format {trackName: 'string', trackDuration: 'string'}
+ * @param {string} titleInput - album title
+ * @param {string} artistInput - album artist
+ * @param {number} yearPublishedInput - album year
+ * @param {[array]} trackListInput - array of track objects in the format {trackName: 'string', trackDuration: 'string'}
  * @return {object} album object including title, artist and year
  */
 
-function addToCollection (titleInput, artistInput, yearPublishedInput, trackListInput) {
+function addToCollection(titleInput, artistInput, yearPublishedInput, trackListInput) {
     const newAlbum = {
         title: titleInput,
         artist: artistInput,
         year: yearPublishedInput,
-        tracks: [trackListInput],
+        tracks: trackListInput,
     };
     collection.push(newAlbum);
     return newAlbum;
@@ -41,9 +41,9 @@ console.log(addToCollection('Californication', 'Red Hot Chili Peppers', 1999, ca
 console.log(addToCollection('Distance and Time', 'Fink', 2007, distanceAndTimeTrackListing));
 console.log(addToCollection('good kid, m.A.A.d City', 'Kendrick Lamar', 2012, goodKidMaadCityTrackListing));
 console.log(addToCollection('Indicud', 'Kid Cudi', 2013, indicudTrackListing));
-console.log(addToCollection('Skin and Bones', 'Foo Fighters', 2006, skinAndBonesTrackListing)); 
+console.log(addToCollection('Skin and Bones', 'Foo Fighters', 2006, skinAndBonesTrackListing));
 
-console.log(collection);
+console.log('The collection includes:', collection);
 
 // 4. - Add a function named `showCollection`. This function should:
 //    - Take in an array parameter. (This allows it to be reused to show any collection, like the results from the find or search.)
@@ -52,17 +52,17 @@ console.log(collection);
 
 /**
  * Shows the properties of albums in a collection
- * @param {[array]} arrayInput a collection of albums
- * @return No specified return. Instead, console.log the number of albums and each album's title, artist, published year, and track listing (track name and duration).
+ * @param {[array]} arrayInput - a collection of album objects
+ * @return No specified return. Instead, console.log the number of albums and each album's title, artist, published year, and track.
 */
 
-function showCollection (array) {
-    console.log('There are', array.length,'albums in this collection.');
-    for (let i=0; i<array.length; i+=1) {
+function showCollection(array) {
+    console.log('There are', array.length, 'albums in this collection.');
+    for (let i = 0; i < array.length; i += 1) {
         console.log(`${array[i].title} by ${array[i].artist}, published in ${array[i].year}:`);
-        let trackListArray = array[i].tracks[0];
-        for (let t=0; t<trackListArray.length; t+=1) {
-            console.log(`${t+1}. ${trackListArray[t].trackName} ${trackListArray[t].trackDuration}`);
+        let trackListArray = array[i].tracks;
+        for (let t = 0; t < trackListArray.length; t += 1) {
+            console.log(`${t + 1}. ${trackListArray[t].trackName} ${trackListArray[t].trackDuration}`);
         }
     }
 };
@@ -78,13 +78,13 @@ showCollection(collection);
 
 /**
  * Search for and show albums found by a specified artist
- * @param {string} artistInput artist to search for
- * @return {[array]} albumsFound albums found by the specified artist
+ * @param {string} artistInput - artist to search for
+ * @return {[array]} albumsFound - array of albums found by the specified artist
 */
 
-function findByArtist (artistInput) {
+function findByArtist(artistInput) {
     const albumsFound = [];
-    for(let album of collection) {
+    for (let album of collection) {
         if (artistInput === album.artist) {
             albumsFound.push(album);
         }
@@ -115,30 +115,32 @@ console.log(findByArtist('Tracy Chapman')); //expect empty albumsFound array
  * will be returned.
  */
 
-function search (artistYearTrackInput) {
+function search(artistYearTrackInput) {
     const albumsMatched = [];
     if (typeof artistYearTrackInput === 'undefined' || (artistYearTrackInput.artist === '' && artistYearTrackInput.year === '' && artistYearTrackInput.track === '')) {
         return collection;
-    } else { 
-        for (let i=0; i<collection.length; i+=1) {
+    } else {
+        for (let i = 0; i < collection.length; i += 1) {
             let album = collection[i];
             if (artistYearTrackInput.artist === album.artist && artistYearTrackInput.year === album.year) {
-                let trackListArray = collection[i].tracks[0];
-                for (let t=0; t<trackListArray.length; t+=1) {
+                let trackListArray = collection[i].tracks;
+                for (let t = 0; t < trackListArray.length; t += 1) {
                     if (artistYearTrackInput.track === trackListArray[t].trackName) {
                         albumsMatched.push(album);
                     }
-                } 
-            } 
+                }
+            }
         } return albumsMatched;
     }
 }
-console.log(search({artist: 'Red Hot Chili Peppers', year: 2002, track: 'Minor Thing'})); //expect albumsMatched array with album 'By the Way'
-console.log(search({artist: 'Fink', year: 2007, track: 'Blueberry Pancakes'})); //expect albumsMatched array with album 'Distance and Time'
-console.log(search({artist: 'Red Hot Chili Peppers', year: 2002, track: 'Not a Track Name'})); //expect empty albumsMatched array (track name doesn't match)
-console.log(search({artist: 'Red Hot Chili Peppers', year: 2003})); //expect empty albumsMatched array (year doesn't match)
-console.log(search({artist: '', year: '', track: ''})); //expect collection array
-console.log(search()); //expect collection array
+
+console.log(search({ artist: 'Red Hot Chili Peppers', year: 2002, track: 'Minor Thing' })); //expect albumsMatched array with album 'By the Way'
+console.log(search({ artist: 'Fink', year: 2007, track: 'Blueberry Pancakes' })); //expect albumsMatched array with album 'Distance and Time'
+console.log(search({ artist: 'Red Hot Chili Peppers', year: 2002, track: 'Not a Track Name' })); //expect empty albumsMatched array (track name doesn't match)
+console.log(search({ artist: 'Red Hot Chili Peppers', year: 2003, track: 'Minor Thing' })); //expect empty albumsMatched array (year doesn't match)
+console.log(search({ artist: 'Red Hot Chili Peppers', year: 2003, track: '' })); //expect empty albumsMatched array (year and track don't match)
+console.log(search({ artist: '', year: '', track: '' })); //expect collection array of all albums (empty search object)
+console.log(search()); //expect collection array of all albums (no search object)
 
 // 9. a. - Add an array of `tracks` to your album objects. Each track should have a `name` and `duration`. You will need to update the functions to support this new property:
 //    b. - Update the `addToCollection` function to also take an input parameter for the array of tracks.
